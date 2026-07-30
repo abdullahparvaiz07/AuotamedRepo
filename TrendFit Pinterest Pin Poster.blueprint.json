@@ -1,0 +1,471 @@
+{
+    "name": "TrendFit Pinterest Pin Poster",
+    "flow": [
+        {
+            "id": 1,
+            "module": "gateway:CustomWebHook",
+            "version": 1,
+            "parameters": {
+                "hook": 3372359,
+                "maxResults": 1
+            },
+            "mapper": {},
+            "metadata": {
+                "designer": {
+                    "x": 131,
+                    "y": 11
+                },
+                "restore": {
+                    "hook": {
+                        "data": {
+                            "name": "TrendFit Pinterest Trigger",
+                            "editable": true
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hook",
+                        "type": "hook:gateway-webhook",
+                        "label": "Webhook",
+                        "required": true
+                    },
+                    {
+                        "name": "maxResults",
+                        "type": "number",
+                        "label": "Maximum number of results"
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "board",
+                        "type": "text",
+                        "label": "Board"
+                    },
+                    {
+                        "name": "articleUrl",
+                        "type": "text",
+                        "label": "Article URL"
+                    },
+                    {
+                        "name": "rowId",
+                        "type": "text",
+                        "label": "Row ID"
+                    },
+                    {
+                        "name": "pin1",
+                        "spec": [
+                            {
+                                "name": "title",
+                                "type": "text",
+                                "label": "Title"
+                            },
+                            {
+                                "name": "description",
+                                "type": "text",
+                                "label": "Description"
+                            },
+                            {
+                                "name": "imageUrl",
+                                "type": "text",
+                                "label": "Image URL"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Pin 1"
+                    },
+                    {
+                        "name": "pin2",
+                        "spec": [
+                            {
+                                "name": "title",
+                                "type": "text",
+                                "label": "Title"
+                            },
+                            {
+                                "name": "description",
+                                "type": "text",
+                                "label": "Description"
+                            },
+                            {
+                                "name": "imageUrl",
+                                "type": "text",
+                                "label": "Image URL"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Pin 2"
+                    },
+                    {
+                        "name": "pin3",
+                        "spec": [
+                            {
+                                "name": "title",
+                                "type": "text",
+                                "label": "Title"
+                            },
+                            {
+                                "name": "description",
+                                "type": "text",
+                                "label": "Description"
+                            },
+                            {
+                                "name": "imageUrl",
+                                "type": "text",
+                                "label": "Image URL"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Pin 3"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 9,
+            "module": "pinterest:createPin",
+            "version": 2,
+            "parameters": {
+                "__IMTCONN__": 8907529
+            },
+            "mapper": {
+                "link": "{{1.articleUrl}}",
+                "title": "{{1.pin1.title}}",
+                "board_id": "{{if(1.board = \"Fashion & Style\"; \"1137933099538477860\"; if(1.board = \"Health & Fitness\"; \"1137933099538477863\"; if(1.board = \"Home Decor\"; \"1137933099538477865\"; if(1.board = \"Trending News\"; \"1137933099538477868\"; if(1.board = \"Self Improvement\"; \"1137933099538478793\"; if(1.board = \"Travel Planning\"; \"1137933099538478795\"; if(1.board = \"DIY & Crafts\"; \"1137933099538478797\"; if(1.board = \"Food & Recipes\"; \"1137933099538478799\"; \"1137933099538478800\"))))))))}}",
+                "description": "{{1.pin1.description}}",
+                "media_source": {
+                    "url": "{{ifempty(1.pin1.imageUrl; \"https://trendfits.net/wp-content/uploads/2025/01/trendfits-logo.png\")}}",
+                    "source_type": "image_url"
+                }
+            },
+            "metadata": {
+                "designer": {
+                    "x": 435,
+                    "y": -193
+                },
+                "restore": {
+                    "expect": {
+                        "board_id": {
+                            "mode": "edit"
+                        },
+                        "media_source": {
+                            "label": "Image URL",
+                            "nested": "source_type"
+                        }
+                    }
+                },
+                "expect": [
+                    {
+                        "name": "media_source",
+                        "type": "collection",
+                        "label": "Media Source",
+                        "required": true
+                    },
+                    {
+                        "name": "board_id",
+                        "type": "text",
+                        "label": "Board"
+                    },
+                    {
+                        "name": "title",
+                        "type": "text",
+                        "label": "Pin Name"
+                    },
+                    {
+                        "name": "description",
+                        "type": "text",
+                        "label": "Description"
+                    },
+                    {
+                        "name": "link",
+                        "type": "url",
+                        "label": "Link"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 10,
+            "module": "pinterest:createPin",
+            "version": 2,
+            "parameters": {
+                "__IMTCONN__": 8907529
+            },
+            "mapper": {
+                "link": "{{1.articleUrl}}",
+                "title": "{{1.pin2.title}}",
+                "board_id": "{{if(1.board = \"Fashion & Style\"; \"1137933099538477860\"; if(1.board = \"Health & Fitness\"; \"1137933099538477863\"; if(1.board = \"Home Decor\"; \"1137933099538477865\"; if(1.board = \"Trending News\"; \"1137933099538477868\"; if(1.board = \"Self Improvement\"; \"1137933099538478793\"; if(1.board = \"Travel Planning\"; \"1137933099538478795\"; if(1.board = \"DIY & Crafts\"; \"1137933099538478797\"; if(1.board = \"Food & Recipes\"; \"1137933099538478799\"; \"1137933099538478800\"))))))))}}",
+                "description": "{{1.pin2.description}}",
+                "media_source": {
+                    "url": "{{ifempty(1.pin2.imageUrl; \"https://trendfits.net/wp-content/uploads/2025/01/trendfits-logo.png\")}}",
+                    "source_type": "image_url"
+                }
+            },
+            "metadata": {
+                "designer": {
+                    "x": 435,
+                    "y": 7
+                },
+                "restore": {
+                    "expect": {
+                        "board_id": {
+                            "mode": "edit"
+                        },
+                        "media_source": {
+                            "label": "Image URL",
+                            "nested": "source_type"
+                        }
+                    }
+                },
+                "expect": [
+                    {
+                        "name": "media_source",
+                        "type": "collection",
+                        "label": "Media Source",
+                        "required": true
+                    },
+                    {
+                        "name": "board_id",
+                        "type": "text",
+                        "label": "Board"
+                    },
+                    {
+                        "name": "title",
+                        "type": "text",
+                        "label": "Pin Name"
+                    },
+                    {
+                        "name": "description",
+                        "type": "text",
+                        "label": "Description"
+                    },
+                    {
+                        "name": "link",
+                        "type": "url",
+                        "label": "Link"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 11,
+            "module": "pinterest:createPin",
+            "version": 2,
+            "parameters": {
+                "__IMTCONN__": 8907529
+            },
+            "mapper": {
+                "link": "{{1.articleUrl}}",
+                "title": "{{1.pin3.title}}",
+                "board_id": "{{if(1.board = \"Fashion & Style\"; \"1137933099538477860\"; if(1.board = \"Health & Fitness\"; \"1137933099538477863\"; if(1.board = \"Home Decor\"; \"1137933099538477865\"; if(1.board = \"Trending News\"; \"1137933099538477868\"; if(1.board = \"Self Improvement\"; \"1137933099538478793\"; if(1.board = \"Travel Planning\"; \"1137933099538478795\"; if(1.board = \"DIY & Crafts\"; \"1137933099538478797\"; if(1.board = \"Food & Recipes\"; \"1137933099538478799\"; \"1137933099538478800\"))))))))}}",
+                "description": "{{1.pin3.description}}",
+                "media_source": {
+                    "url": "{{ifempty(1.pin3.imageUrl; \"https://trendfits.net/wp-content/uploads/2025/01/trendfits-logo.png\")}}",
+                    "source_type": "image_url"
+                }
+            },
+            "metadata": {
+                "designer": {
+                    "x": 435,
+                    "y": 207
+                },
+                "restore": {
+                    "expect": {
+                        "board_id": {
+                            "mode": "edit"
+                        },
+                        "media_source": {
+                            "label": "Image URL",
+                            "nested": "source_type"
+                        }
+                    }
+                },
+                "expect": [
+                    {
+                        "name": "media_source",
+                        "type": "collection",
+                        "label": "Media Source",
+                        "required": true
+                    },
+                    {
+                        "name": "board_id",
+                        "type": "text",
+                        "label": "Board"
+                    },
+                    {
+                        "name": "title",
+                        "type": "text",
+                        "label": "Pin Name"
+                    },
+                    {
+                        "name": "description",
+                        "type": "text",
+                        "label": "Description"
+                    },
+                    {
+                        "name": "link",
+                        "type": "url",
+                        "label": "Link"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 19,
+            "module": "google-email:ActionSendEmail",
+            "version": 1,
+            "parameters": {
+                "account": 8997183
+            },
+            "mapper": {
+                "cc": [],
+                "to": [
+                    "trendfits092@gmail.com"
+                ],
+                "bcc": [],
+                "from": "",
+                "html": "<p>Hi there,</p><p>Congratulations 🎉 Your latest article and pins are now live! Here's a quick recap:</p><p><strong>Article:</strong> <a href=\"{{1.articleUrl}}\">{{1.articleUrl}}</a></p><p><strong>Pins:</strong><br>1. <a href=\"https://www.pinterest.com/pin/{{9.id}}\">https://www.pinterest.com/pin/{{9.id}}</a><br>2. <a href=\"https://www.pinterest.com/pin/{{10.id}}\">https://www.pinterest.com/pin/{{10.id}}</a><br>3. <a href=\"https://www.pinterest.com/pin/{{11.id}}\">https://www.pinterest.com/pin/{{11.id}}</a></p><p>Nice work getting this out into the world — keep it up!</p><p>Best,<br>TrendFits Team</p>",
+                "subject": "Welcome & Congratulations!",
+                "attachments": []
+            },
+            "metadata": {
+                "designer": {
+                    "x": 696,
+                    "y": -26
+                },
+                "restore": {
+                    "expect": {
+                        "cc": {
+                            "mode": "chose"
+                        },
+                        "to": {
+                            "mode": "chose",
+                            "items": [
+                                null
+                            ]
+                        },
+                        "bcc": {
+                            "mode": "chose"
+                        },
+                        "attachments": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "account": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "google"
+                            },
+                            "label": "My Google connection (trendfits092@gmail.com)"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "account",
+                        "type": "account:google",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "from",
+                        "type": "text",
+                        "label": "From"
+                    },
+                    {
+                        "name": "to",
+                        "spec": {
+                            "name": "value",
+                            "type": "email",
+                            "label": "Email address",
+                            "required": true
+                        },
+                        "type": "array",
+                        "label": "To",
+                        "required": true
+                    },
+                    {
+                        "name": "subject",
+                        "type": "text",
+                        "label": "Subject"
+                    },
+                    {
+                        "name": "html",
+                        "type": "text",
+                        "label": "Content"
+                    },
+                    {
+                        "name": "attachments",
+                        "spec": [
+                            {
+                                "name": "fileName",
+                                "type": "filename",
+                                "label": "File name",
+                                "required": true,
+                                "semantic": "file:name"
+                            },
+                            {
+                                "name": "data",
+                                "type": "buffer",
+                                "label": "Data",
+                                "required": true,
+                                "semantic": "file:data"
+                            },
+                            {
+                                "name": "cid",
+                                "type": "text",
+                                "label": "Content-ID"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Attachments"
+                    },
+                    {
+                        "name": "cc",
+                        "spec": {
+                            "name": "value",
+                            "type": "email",
+                            "label": "Email address"
+                        },
+                        "type": "array",
+                        "label": "Copy recipient"
+                    },
+                    {
+                        "name": "bcc",
+                        "spec": {
+                            "name": "value",
+                            "type": "email",
+                            "label": "Email address"
+                        },
+                        "type": "array",
+                        "label": "Blind copy recipient"
+                    }
+                ]
+            }
+        }
+    ],
+    "metadata": {
+        "instant": true,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "eu1.make.com",
+        "notes": []
+    }
+}
