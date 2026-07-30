@@ -1,5 +1,4 @@
 {
-  "name": "Updated version of Trendfits Auto Blogger",
   "nodes": [
     {
       "parameters": {
@@ -28,10 +27,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        240,
+        336,
         112
       ],
-      "id": "8cbb7728-464f-4e54-917a-c9034f8a4a71",
+      "id": "f8038419-f0df-4af9-9961-7e105dac1824",
       "name": "If"
     },
     {
@@ -39,10 +38,10 @@
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        160,
+        256,
         320
       ],
-      "id": "a6855659-9f7b-4c04-ab17-9e2c4c2ace80",
+      "id": "df6ec87a-4204-47bb-bc6f-186710969040",
       "name": "No Operation, do nothing"
     },
     {
@@ -72,15 +71,15 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        1024,
+        1120,
         96
       ],
-      "id": "3135d8b2-4cfe-4416-a40b-37ed14c64b5b",
+      "id": "241027a8-fe59-4788-abda-2ed4b8d63c3c",
       "name": "Upload Image",
       "credentials": {
         "httpBasicAuth": {
-          "id": "BucjOcV9qX73xbsH",
-          "name": "Trendfits"
+          "id": "Omy5Emjg9r4OcDtm",
+          "name": "Wordpress"
         }
       }
     },
@@ -96,10 +95,10 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 3.1,
       "position": [
-        1248,
+        1344,
         96
       ],
-      "id": "d360fce6-ca2c-4d77-a296-9e536b568047",
+      "id": "3b5d45f7-f485-4bae-ad38-6559e57810a2",
       "name": "AI Agent1"
     },
     {
@@ -113,10 +112,10 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 3.1,
       "position": [
-        528,
+        624,
         96
       ],
-      "id": "58963b65-9537-42b3-ac2c-9bd9f98cd0d2",
+      "id": "e14779e0-6692-4e71-b9d6-b00f6434f19d",
       "name": "Prompt  Generation for Image"
     },
     {
@@ -142,15 +141,15 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        3072,
+        3168,
         528
       ],
-      "id": "3711bee0-097e-4e65-9bcb-9fc160404cde",
+      "id": "ccc92fb9-3780-4fbd-82d8-d1e8e205be27",
       "name": "Post Article",
       "credentials": {
         "httpBasicAuth": {
-          "id": "BucjOcV9qX73xbsH",
-          "name": "Trendfits"
+          "id": "Omy5Emjg9r4OcDtm",
+          "name": "Wordpress"
         }
       }
     },
@@ -174,73 +173,81 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "Row ID": "={{ $('Get row(s) in sheet').item.json['Row ID'] }}",
-            "Topic": "={{ $('Get row(s) in sheet').item.json.Topic }}",
-            "Link": "={{ $('Post Article').item.json.link }}",
+            "Row ID": "={{ $('Limit').item.json['Row ID'] }}",
+            "Topic": "={{ $('Limit').item.json.Topic }}",
             "Status": "Completed",
-            "Tags": "={{ $('Parse Article JSON').item.json.post_tags }}"
+            "Tags": "={{ $('Parse Article JSON').item.json.post_tags }}",
+            "Link": "={{ $json.guid.rendered }}"
           },
           "matchingColumns": [
             "Row ID"
           ],
           "schema": [
             {
-              "canBeUsedToMatch": true,
-              "defaultMatch": false,
-              "display": true,
-              "displayName": "Row ID",
               "id": "Row ID",
-              "removed": false,
+              "displayName": "Row ID",
               "required": false,
-              "type": "string"
-            },
-            {
-              "canBeUsedToMatch": true,
               "defaultMatch": false,
               "display": true,
-              "displayName": "Topic",
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
               "id": "Topic",
+              "displayName": "Topic",
               "required": false,
-              "type": "string"
-            },
-            {
-              "canBeUsedToMatch": true,
               "defaultMatch": false,
               "display": true,
-              "displayName": "Status",
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
               "id": "Status",
-              "removed": false,
+              "displayName": "Status",
               "required": false,
-              "type": "string"
-            },
-            {
-              "canBeUsedToMatch": true,
               "defaultMatch": false,
               "display": true,
-              "displayName": "Link",
-              "id": "Link",
-              "required": false,
-              "type": "string"
+              "type": "string",
+              "canBeUsedToMatch": true
             },
             {
-              "canBeUsedToMatch": true,
+              "id": "KWs",
+              "displayName": "KWs",
+              "required": false,
               "defaultMatch": false,
               "display": true,
-              "displayName": "Tags",
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
               "id": "Tags",
+              "displayName": "Tags",
               "required": false,
-              "type": "string"
-            },
-            {
-              "canBeUsedToMatch": true,
               "defaultMatch": false,
               "display": true,
-              "displayName": "row_number",
-              "id": "row_number",
-              "readOnly": true,
-              "removed": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Link",
+              "displayName": "Link",
               "required": false,
-              "type": "number"
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
             }
           ],
           "attemptToConvertTypes": false,
@@ -251,16 +258,16 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        3392,
+        3376,
         528
       ],
-      "id": "f597db1a-39db-4ec6-9bfb-27aa3d8fbb68",
+      "id": "d630c1d9-394f-4854-a709-b6caab655908",
       "name": "Update row in sheet",
       "alwaysOutputData": false,
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "g9IUGRun7eXqIVMN",
-          "name": "Google Sheets OAuth2 API"
+          "id": "1pcRT2M3Zx8aQAx3",
+          "name": "Google Sheets account"
         }
       }
     },
@@ -271,12 +278,12 @@
         "width": 472,
         "color": 5
       },
-      "id": "a13d9dd2-5a72-491a-b031-f457437eba7a",
+      "id": "7efadea7-2101-4906-a2ac-c2c21be37c4b",
       "name": "Sticky Note ac1b3936",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -96,
+        0,
         0
       ]
     },
@@ -287,12 +294,12 @@
         "width": 756,
         "color": 2
       },
-      "id": "5d4f4090-35bb-49d5-ac2a-1589d5464d34",
+      "id": "52cd3ee4-1508-4b75-a5ff-95f96b21c5a0",
       "name": "Sticky Note 63112c12",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        416,
+        512,
         0
       ]
     },
@@ -303,12 +310,12 @@
         "width": 584,
         "color": 3
       },
-      "id": "5b5fa316-96a9-4f87-860f-103ff48e2a03",
+      "id": "f5287798-77f9-4fc1-be32-4610df8c0d47",
       "name": "Sticky Note 6bfa230c",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1200,
+        1296,
         0
       ]
     },
@@ -319,80 +326,52 @@
         "width": 636,
         "color": 4
       },
-      "id": "2d2b5a2e-dd11-471e-ba04-cf981577e6f9",
+      "id": "167f4428-ff39-4853-8e17-7802156061a7",
       "name": "Sticky Note 05bab47b",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1408,
+        1504,
         464
       ]
     },
     {
       "parameters": {
+        "model": "qwen3.6-flash",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatAlibabaCloud",
       "typeVersion": 1,
       "position": [
-        528,
+        624,
         256
       ],
-      "id": "bc32d3a7-942d-48de-a60c-be9ee1e4a123",
+      "id": "7d7e0b8b-a1df-41f4-a0c0-187c4ef19fe8",
       "name": "Qwen Cloud Chat Model",
       "credentials": {
         "alibabaCloudApi": {
-          "id": "j0aIGj3QzaMkFeBH",
-          "name": "Qwen Cloud account"
+          "id": "rLn4aIDuC8CX6evC",
+          "name": "Short Converter Api"
         }
       }
     },
     {
       "parameters": {
-        "resource": "image",
-        "modelId": {
-          "__rl": true,
-          "cachedResultName": "qwen-image-2.0-pro-2026-06-22",
-          "mode": "list",
-          "value": "qwen-image-2.0-pro-2026-06-22"
-        },
-        "prompt": "=You are an expert AI image prompt engineer for Qwen Image Generation.\n\nYour task is to transform every user request or article into a single, highly optimized image generation prompt.\n\nCore Objective:\nThe generated image MUST accurately represent the article's topic, message, and context. Never generate generic, random, or unrelated imagery. Every visual element should reinforce the article's subject.\n\nInstructions:\n- Return ONLY the final optimized prompt.\n- Do not include explanations, markdown, JSON, labels, or extra text.\n- Analyze the entire article or request before writing the prompt.\n- Identify the main topic, key concepts, important entities, industry, audience, and overall intent.\n- Generate an image that visually communicates the article at a glance.\n- Prioritize relevance over visual complexity.\n- Never invent unrelated people, objects, scenery, or concepts.\n- If the article mentions specific products, technologies, businesses, professions, or industries, ensure they are reflected accurately.\n- If the article is abstract, create a symbolic but contextually accurate illustration instead of random visuals.\n- If the article discusses a process or workflow, visualize the process logically.\n- If multiple concepts exist, emphasize the primary subject while subtly incorporating secondary elements.\n- Preserve every important detail from the user's request.\n\nImage Style:\n- Professional editorial/blog featured image.\n- Modern magazine-quality cover.\n- Similar to premium Canva blog thumbnails.\n- Clean, minimalist composition.\n- Strong visual hierarchy.\n- One clear focal point.\n- No clutter.\n- High-end commercial quality.\n\nOutput:\nReturn only one optimized image generation prompt suitable for a square 1024x1024 high-quality image. {{ $json.output }}",
-        "imageOptions": {
-          "promptExtend": false
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.alibabaCloud",
-      "typeVersion": 1.1,
-      "position": [
-        816,
-        96
-      ],
-      "id": "238bca05-2fd2-4f18-a070-ee41ef164e85",
-      "name": "Generate an image",
-      "credentials": {
-        "alibabaCloudApi": {
-          "id": "j0aIGj3QzaMkFeBH",
-          "name": "Qwen Cloud account"
-        }
-      }
-    },
-    {
-      "parameters": {
+        "model": "qwen-max",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatAlibabaCloud",
       "typeVersion": 1,
       "position": [
-        1248,
+        1344,
         272
       ],
-      "id": "9a810f57-b02e-4cb8-8a2d-bfcaed62b082",
+      "id": "c4d7ae4a-ffbe-45a3-9f4d-fe62a013eab5",
       "name": "Qwen Cloud Chat Model1",
       "credentials": {
         "alibabaCloudApi": {
-          "id": null,
-          "name": "",
-          "__aiGatewayManaged": true
+          "id": "rLn4aIDuC8CX6evC",
+          "name": "Short Converter Api"
         }
       }
     },
@@ -400,12 +379,12 @@
       "parameters": {
         "jsCode": "const input = $input.first().json.output;\nlet post_title, post_content, post_keywords, post_tags, category_id;\n\nif (typeof input === 'object' && input !== null) {\n  post_title = input.post_title || null;\n  post_content = input.post_content || null;\n  post_keywords = input.post_keywords || null;\n  post_tags = input.post_tags || null;\n  category_id = (typeof input.category_id === 'number') ? input.category_id : (input.category_id ? parseInt(input.category_id, 10) : null);\n} else {\n  const raw = input || '';\n  function extractField(text, fieldName) {\n    const re = new RegExp('\"' + fieldName + '\"\\\\s*:\\\\s*\"((?:[^\"\\\\\\\\]|\\\\\\\\[\\\\s\\\\S])*)\"', 's');\n    const match = text.match(re);\n    if (match) return match[1].replace(/\\\\n/g,'\\n').replace(/\\\\r/g,'\\r').replace(/\\\\t/g,'\\t').replace(/\\\\\"/g,'\"').replace(/\\\\\\\\/g,'\\\\');\n    return null;\n  }\n  function extractNumberField(text, fieldName) {\n    const re = new RegExp('\"' + fieldName + '\"\\\\s*:\\\\s*(\\\\d+)');\n    const match = text.match(re);\n    return match ? parseInt(match[1], 10) : null;\n  }\n  // Loosely match a field even if the opening quote before the key name is missing\n  // (some model responses drop it when a prior field's string wasn't closed properly)\n  function extractFieldLoose(text, fieldName) {\n    const re = new RegExp('\"?' + fieldName + '\"\\\\s*:\\\\s*\"((?:[^\"\\\\\\\\]|\\\\\\\\[\\\\s\\\\S])*)\"', 's');\n    const match = text.match(re);\n    if (match) return match[1].replace(/\\\\n/g,'\\n').replace(/\\\\r/g,'\\r').replace(/\\\\t/g,'\\t').replace(/\\\\\"/g,'\"').replace(/\\\\\\\\/g,'\\\\');\n    return null;\n  }\n  post_title = extractField(raw, 'post_title');\n  post_content = extractField(raw, 'post_content');\n  post_keywords = extractField(raw, 'post_keywords') || extractFieldLoose(raw, 'post_keywords');\n  post_tags = extractField(raw, 'post_tags') || extractFieldLoose(raw, 'post_tags');\n  category_id = extractNumberField(raw, 'category_id');\n  if (!post_title || !post_content) {\n    try {\n      let cleaned = raw.trim().replace(/^```json\\s*/i,'').replace(/^```\\s*/i,'').replace(/\\s*```$/i,'').trim();\n      const s = cleaned.indexOf('{'), e = cleaned.lastIndexOf('}');\n      if (s !== -1 && e !== -1) {\n        const p = JSON.parse(cleaned.substring(s, e+1));\n        post_title = post_title || p.post_title;\n        post_content = post_content || p.post_content;\n        post_keywords = post_keywords || p.post_keywords;\n        post_tags = post_tags || p.post_tags;\n        category_id = category_id || p.category_id;\n      }\n    } catch(e) {}\n  }\n  // Strip stray trailing field-name fragments that leaked into post_content\n  // when the model failed to close the string before the next key (e.g. '...text.\\n\\npost_keywords')\n  if (post_content) {\n    post_content = post_content.replace(/\\n*\\s*(post_keywords|post_tags|category_id)\\s*$/i, '').trim();\n  }\n}\n\n// post_keywords and post_tags can substitute for each other; only title+content are hard requirements\nif (!post_keywords && post_tags) post_keywords = post_tags;\nif (!post_tags && post_keywords) post_tags = post_keywords;\nif (!post_title || !post_content) throw new Error('Missing required fields: post_title/post_content.');\nif (!post_keywords) post_keywords = '';\nif (!post_tags) post_tags = post_keywords;\n\nconst validIds = [1,21,23,24,55,56,57,58,59];\nif (!category_id || !validIds.includes(category_id)) category_id = 1;\n\n// ---- Keyword-based category correction (overrides AI misclassification) ----\nconst _src = ((post_title || '') + ' ' + (post_keywords || '')).toLowerCase();\nconst _catMap = [\n  {id:55, kws:['recipe','recipes','cooking','food','baking','sourdough','pancake','waffle','meal','dish','ingredient','pasta','bread','cake','dessert','pizza','snack','cuisine','brunch','dinner','breakfast','lunch']},\n  {id:56, kws:['diy','craft','crafts','handmade','air dry clay','clay jewelry','clay earring','clay pendant','knitting','sewing','crochet','woodwork','upcycl']},\n  {id:57, kws:['personal finance','money','budget','invest','investment','saving money','financial','wealth','debt','passive income','retirement','stock market','crypto','tax tips','side hustle','earn money']},\n  {id:58, kws:['travel','trip planning','vacation','packing list','packing tips','destination','itinerary','luggage','airline','hotel','backpacking','sightseeing','tourist','carry-on','carry on','travel hacks','solo travel']},\n  {id:59, kws:['self improvement','self-improvement','productivity','mindset','morning routine','daily routine','habit','anxiety','stress management','meditation','mental health','mindfulness','motivation','discipline','focus','journaling','gratitude','low stimulation','personal growth','goal setting']},\n  {id:24, kws:['fitness','workout','exercise','gym','yoga','nutrition','diet','weight loss','muscle','cardio','running','marathon','hiit','strength training','health and fitness','healthy lifestyle']},\n  {id:23, kws:['fashion','fashion trends','style tips','clothing','outfit','wardrobe','streetwear','apparel','ootd','seasonal fashion','womens fashion','mens fashion']},\n  {id:21, kws:['home decor','interior design','furniture','room decoration','living room decor','bedroom decor','bathroom decor','home improvement','renovation','wallpaper','curtains','home styling','home organization']},\n];\nlet _det = null;\nfor (const {id, kws} of _catMap) {\n  for (const kw of kws) { if (_src.includes(kw)) { _det = id; break; } }\n  if (_det !== null) break;\n}\nif (_det !== null && _det !== category_id) {\n  category_id = _det;\n}\n// ---- end keyword override ----\n\nfunction slugify(text) {\n  return text.toLowerCase().replace(/<[^>]+>/g,'').replace(/[^a-z0-9\\s-]/g,'').trim().replace(/\\s+/g,'-');\n}\n\nfunction buildDropdownTOC(lines) {\n  const tocItems = [];\n  for (const line of lines) {\n    const t = line.trim();\n    const m = t.match(/^(?:[-*]|\\d+\\.)\\s*\\[(.+?)\\]\\(#(.+?)\\)/);\n    if (m) tocItems.push({ label: m[1], anchor: m[2] });\n  }\n  if (tocItems.length === 0) return null;\n\n  const liHtml = tocItems.map((item, i) =>\n    `    <li style=\"padding:2px 0;\"><a href=\"#${item.anchor}\" style=\"color:#8B4513;text-decoration:none;font-weight:bold;font-size:15px;line-height:2;\">${i + 1}.&nbsp;&nbsp;${item.label}</a></li>`\n  ).join('\\n');\n\n  return (\n    `<div class=\"ez-toc-container\" style=\"border:1px solid #d4b896;border-radius:6px;background:#fdf8f2;padding:20px 24px;margin:24px 0;font-family:Georgia,serif;\">` +\n    `<div style=\"display:flex;align-items:center;justify-content:space-between;\">` +\n    `<strong style=\"font-size:17px;color:#2c1a0e;\">Table of Contents</strong>` +\n    `<button onclick=\"var l=this.closest('.ez-toc-container').querySelector('ul');l.style.display=l.style.display==='none'?'block':'none';\" style=\"background:none;border:1px solid #c8a97e;border-radius:4px;padding:3px 10px;cursor:pointer;font-size:13px;color:#5a3e28;\">&#9660;</button>` +\n    `</div>` +\n    `<ul style=\"list-style:none;padding:12px 0 0 0;margin:0;\">\\n${liHtml}\\n  </ul>` +\n    `</div>`\n  );\n}\n\nfunction mdToHtml(md) {\n  const allLines = md.split('\\n');\n  const tocHtml = buildDropdownTOC(allLines);\n  const filteredLines = allLines.filter(line => !line.trim().match(/^(?:[-*]|\\d+\\.)\\s*\\[.+?\\]\\(#.+?\\)/));\n\n  let html = '';\n  let inUl = false, inOl = false;\n  function closeList() { if (inUl) { html += '</ul>\\n'; inUl = false; } if (inOl) { html += '</ol>\\n'; inOl = false; } }\n  function inlineFormat(t) {\n    return t\n      .replace(/\\*\\*\\*(.+?)\\*\\*\\*/g,'<strong><em>$1</em></strong>')\n      .replace(/\\*\\*(.+?)\\*\\*/g,'<strong>$1</strong>')\n      .replace(/\\*(.+?)\\*/g,'<em>$1</em>')\n      .replace(/`(.+?)`/g,'<code>$1</code>')\n      .replace(/\\[([^\\]]+)\\]\\(([^)]+)\\)/g,'<a href=\"$2\">$1</a>');\n  }\n  for (const line of filteredLines) {\n    const t = line.trim();\n    if (!t) { closeList(); continue; }\n    if (/^#{6} /.test(t)) { closeList(); html += '<h6>'+inlineFormat(t.replace(/^#{6} /,''))+'</h6>\\n'; continue; }\n    if (/^#{5} /.test(t)) { closeList(); html += '<h5>'+inlineFormat(t.replace(/^#{5} /,''))+'</h5>\\n'; continue; }\n    if (/^#{4} /.test(t)) { closeList(); html += '<h4>'+inlineFormat(t.replace(/^#{4} /,''))+'</h4>\\n'; continue; }\n    if (/^#{3} /.test(t)) { closeList(); html += '<h3>'+inlineFormat(t.replace(/^#{3} /,''))+'</h3>\\n'; continue; }\n    if (/^#{2} /.test(t)) { closeList(); const hText = t.replace(/^#{2} /,''); html += '<h2 id=\"'+slugify(hText)+'\">'+inlineFormat(hText)+'</h2>\\n'; continue; }\n    if (/^#{1} /.test(t)) { closeList(); html += '<h1>'+inlineFormat(t.replace(/^#{1} /,''))+'</h1>\\n'; continue; }\n    const olM = t.match(/^\\d+\\.\\s+(.+)/); if (olM) { if (inUl) { html += '</ul>\\n'; inUl = false; } if (!inOl) { html += '<ol>\\n'; inOl = true; } html += '<li>'+inlineFormat(olM[1])+'</li>\\n'; continue; }\n    const ulM = t.match(/^[-*]\\s+(.+)/); if (ulM) { if (inOl) { html += '</ol>\\n'; inOl = false; } if (!inUl) { html += '<ul>\\n'; inUl = true; } html += '<li>'+inlineFormat(ulM[1])+'</li>\\n'; continue; }\n    closeList();\n    html += '<p>'+inlineFormat(t)+'</p>\\n';\n  }\n  closeList();\n  if (tocHtml) html = tocHtml + '\\n' + html;\n  return html;\n}\n\nconst post_content_html = mdToHtml(post_content);\nreturn [{ json: { post_title, post_content: post_content_html, post_keywords, post_tags, category_id } }];"
       },
-      "id": "722aba56-f42a-421f-ae52-2bcdd657c91f",
+      "id": "9b07360b-96f2-471a-a6f0-ea7035fa6545",
       "name": "Parse Article JSON",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1632,
+        1728,
         96
       ]
     },
@@ -417,12 +396,12 @@
           "systemMessage": "You are a senior human blog editor with 20+ years of experience writing for top publications. Your job is to completely rewrite the AI-generated HTML blog content you receive — not edit it, not polish it — REWRITE it from scratch using the same structure and facts but entirely your own words, voice, and rhythm.\n\n## NON-NEGOTIABLE OUTPUT RULES\n- Input is HTML. Output MUST be complete valid HTML.\n- NEVER output markdown. NEVER use ##, ###, **, *, -, > as formatting.\n- NEVER strip, add, or modify any HTML tags. Every tag passes through exactly as received.\n- NEVER rewrite text inside <h2> heading tags. Copy them through UNCHANGED.\n- NEVER wrap output in code fences. No explanation before or after. Raw HTML only.\n- Preserve all <figure>, <img>, <ul>, <li>, <ol>, <strong>, <em>, <blockquote> tags exactly.\n- In the Common Questions section, each FAQ is structured as a <p><strong>Question?</strong></p> followed by a <p>answer paragraph</p>. Copy the <strong> question UNCHANGED. Rewrite only the answer <p> in your own words. Never convert questions to headings. Never merge question and answer into one paragraph.\n\n## YOUR REWRITING MISSION\nEvery paragraph must be rewritten so completely that not a single original sentence survives. Same meaning, same facts — but your words, your structure, your voice. Think of it as translating the content into human.\n\nWRONG (never write like this):\n\"Home organization plays a significant role in creating a comfortable living environment. Furthermore, it is important to note that there are numerous cutting-edge strategies that can be leveraged to maintain a seamless organizational system. It goes without saying that holistic approaches work best.\"\n\nRIGHT (write exactly like this):\n\"Most people start with the wrong thing. They buy bins, label everything, reorganize the shelves — and three weeks later it's chaos again. The real problem isn't stuff. It's decision fatigue. When nothing has a clear home, you put it wherever feels easiest in the moment. And that moment repeats until the pile comes back.\"\n\nWhy the second works: opens with a claim not a definition, short sentence followed by a longer one, names the actual problem, no filler phrases.\n\n---\n\nWRONG:\n\"Technology has revolutionized personal finance. Cutting-edge tools now leverage your data to empower you with seamless insights. It is crucial to utilize these robust solutions for optimal outcomes.\"\n\nRIGHT:\n\"Budgeting apps have gotten actually good. Not 'good for an app' good — useful. The best ones now flag spending patterns you'd never catch yourself, like subscription costs that crept from $30 to $90 a month without a single large charge triggering the alarm. That kind of slow drain is where most budgets quietly fall apart.\"\n\n---\n\nWRITING RULES — internalize these, don't follow them like a checklist:\n\nSentence length must vary constantly. Short sentences hit hard. Longer sentences build context, introduce a qualifier, or arrive somewhere the reader wasn't quite expecting — which is what keeps them reading. Never let three consecutive sentences run the same approximate length.\n\nUse contractions everywhere in prose. Don't, you'll, it's, they're, here's, what's, that's. Always.\n\nOpen every section unexpectedly. Not \"X is important for Y.\" Instead: a specific scenario, a question, a counterintuitive fact, a direct tip, or something the reader recognizes from their own life.\n\nDifferent paragraph openings every time. If one starts with \"You\", the next should start with something else entirely. Rotate: a time reference, a conditional (\"If you've ever...\"), a contrast (\"Unlike...\"), a direct address, a claim, a question.\n\nBe specific. Not \"many people\" → \"about 6 in 10 people\". Not \"it takes time\" → \"expect 3 to 4 weeks\". Not \"can be expensive\" → \"usually runs $150 to $300\". Invented specifics are fine — just be specific.\n\nAdd em-dash asides — like this one — and parenthetical clarifications (they feel conversational). Use them naturally, not once per section on schedule.\n\nHave opinions. Say \"honestly\", \"the truth is\", \"here's what most guides skip\", \"I'd argue\", \"what nobody tells you\". Be direct about what works and what doesn't.\n\nInclude one original analogy or comparison per major section. Not a cliché — something that actually reframes the concept for this specific topic.\n\nWrite in active voice. Not \"it has been shown that\" → \"research shows\". Not \"this can be seen in\" → \"you'll notice this in\". Not \"it is recommended\" → \"experts recommend\".\n\nVary paragraph length. One paragraph can be a single punchy sentence. Another can run six sentences building an argument. The variation itself signals human authorship.\n\nABSOLUTELY BANNED — never use these words or phrases, not even once:\nIn today's world, In today's fast-paced, Furthermore, Moreover, Additionally, In addition, In conclusion, To summarize, In summary, Delve into, Dive into, Seamless, Seamlessly, Leverage, Leveraging, Robust, Revolutionary, Game-changer, Cutting-edge, Holistic, Unlock, Empower, Harness, Transformative, Unprecedented, Paradigm shift, Synergy, It is important to note, Plays a significant role, It goes without saying, At the end of the day, In the realm of, As we can see, Needless to say, Testament to, It's crucial, It is crucial, It's essential, It is essential, Comprehensive, Utilize, Optimize, Streamline, Facilitate\n\n## SENTENCE STRUCTURE — THE MOST IMPORTANT RULE\nAI writes in uniform, predictable sentence lengths. You must destroy that pattern entirely:\n- Drop a one-word sentence. Seriously.\n- Then write a medium one that builds on it.\n- Then let loose with a longer sentence that wraps around an idea, adds a twist, and lands somewhere unexpected — because that's what real writers do when they actually care about what they're saying.\n- Start sentences with: And, But, So, Yet, Because, Still, Even, Here's the thing —\n- Use fragments deliberately. For emphasis. Like this.\n- Mix casual observations with sharp insights in the same paragraph.\n- Never write two sentences with the same structure back to back. Ever.\n\n## VOICE & PERSONALITY\n- Have opinions. \"Most people get this completely wrong.\" \"The truth is simpler than you think.\" \"Nobody talks about this, but...\"\n- Use first-person sparingly but meaningfully: \"What I've seen...\", \"Honestly...\", \"Here's what actually works...\"\n- Be direct. Cut filler. Say the thing.\n- Use contractions always: don't, it's, you'll, they're, we've, that's, can't, won't, shouldn't, wouldn't.\n- Add em dashes — like this — for natural asides that feel like real speech.\n- Use parenthetical remarks (the kind that feel like a quiet aside to the reader).\n- Ask rhetorical questions mid-flow: \"Sound familiar?\" / \"Why does this even matter?\" / \"But is it worth it?\"\n- Occasionally use ellipsis for trailing thoughts... or when something is left unsaid.\n\n## VOCABULARY — REPLACE EVERY AI WORD\nBanned words and their replacements:\n- utilize → use\n- implement → try / apply / put in place\n- ensure → make sure\n- individuals → people\n- in order to → to\n- additionally → also / plus / on top of that\n- however → but\n- therefore → so\n- subsequently → then / after that\n- commence → start\n- obtain → get\n- sufficient → enough\n- leverage → use\n- facilitate → help\n- optimize → improve\n- innovative → new / fresh / different\n- seamless → smooth\n- robust → strong / solid\n- paramount → crucial / key / essential\n- comprehensive → full / complete / thorough\n\nBanned opening phrases (never use these anywhere):\n\"Before diving into\", \"When it comes to\", \"It's important to note\", \"It's worth noting\", \"In today's world\", \"Look no further\", \"Whether you're a beginner or expert\", \"In this article\", \"This article will\", \"In conclusion\", \"To summarize\", \"As we can see\", \"It goes without saying\", \"Needless to say\", \"At the end of the day\"\n\n## PARAGRAPH VARIATION\n- Some paragraphs: 1-2 sentences. Short. Punchy.\n- Some paragraphs: 4-5 sentences with real depth and a concrete example or number.\n- Never two paragraphs of the same length in a row.\n- Every paragraph must start with a different word than the previous one.\n- No paragraph can start with \"The\" more than once per section.\n\n## SPECIFICITY RULE\nReplace every vague AI generality with something concrete:\n- Instead of \"many people struggle with this\" → \"most people give up within the first two weeks\"\n- Instead of \"there are several benefits\" → \"there are three specific reasons this works\"\n- Instead of \"this can improve your results\" → \"this alone can cut your time in half\"\n\n## 10 MORE RULES FOR SOUNDING HUMAN\n1. Drop in one stray personal aside per article — \"I've tested this myself,\" \"a friend swears by the opposite\" — never more than once, or it starts feeling performative.\n2. Vary your transitions. Don't lean on \"also,\" \"plus,\" or \"but\" every time — mix in \"still,\" \"that said,\" \"granted,\" \"here's the catch,\" \"fair enough, except.\"\n3. Occasionally undercut your own point before defending it: \"Sounds counterintuitive. It kind of is. But...\"\n4. Use uneven groupings instead of clean threes — two examples in one section, four in another. Perfectly symmetric lists read like templates.\n5. Let one sentence per section run a little too long, like a real thought spiraling out, then cut hard to something short right after.\n6. Reference specific, slightly imperfect numbers instead of round ones — \"about 62%\" not \"roughly 60%,\" \"takes 11 minutes\" not \"about 10 minutes.\"\n7. Use a colloquial idiom tied to the topic once or twice — something a working expert would actually say out loud, not textbook phrasing.\n8. Address the reader's likely objection directly before they raise it: \"You're probably thinking X. Fair. Here's why it still holds.\"\n9. Never open two consecutive paragraphs with the same part of speech — two questions in a row, two flat claims in a row, that kind of pattern gives it away.\n10. Read each paragraph back mentally as if it were spoken aloud — if a sentence wouldn't come out of someone's mouth naturally in conversation, rewrite it shorter and plainer."
         }
       },
-      "id": "984e1dc9-6fc5-4483-a05c-138a4c7a0155",
+      "id": "d742eaa6-6347-4dac-a724-7cca75fc04ae",
       "name": "Humanizer",
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 3.1,
       "position": [
-        1520,
+        1616,
         560
       ]
     },
@@ -430,18 +409,18 @@
       "parameters": {
         "options": {}
       },
-      "id": "3a673075-dd1e-4e81-abe2-2ace31b94106",
+      "id": "22e43aa1-1271-48c2-b4ce-f161501228e8",
       "name": "Qwen Cloud Chat Model2",
       "type": "@n8n/n8n-nodes-langchain.lmChatAlibabaCloud",
       "typeVersion": 1,
       "position": [
-        1520,
+        1616,
         720
       ],
       "credentials": {
         "alibabaCloudApi": {
-          "id": "j0aIGj3QzaMkFeBH",
-          "name": "Qwen Cloud account"
+          "id": "rLn4aIDuC8CX6evC",
+          "name": "Short Converter Api"
         }
       }
     },
@@ -449,12 +428,12 @@
       "parameters": {
         "jsCode": "// Extract headings from humanized HTML output\nconst raw = $input.first().json.output || '';\n\nconst topic = $('Get row(s) in sheet').item.json.Topic;\nconst postTitle = $('Parse Article JSON').item.json.post_title;\nconst categoryId = $('Parse Article JSON').item.json.category_id;\nconst featuredMediaId = $('Upload Image').item.json.id;\n\n// Skip pattern for unwanted headings\nconst skipPattern = /^(conclusion|faq|frequently asked|common questions?|q\\s*&\\s*a|summary|final|wrap|closing)/i;\n\n// Try H2 headings first\nconst headings = [];\nconst h2Parts = raw.split(/<h2[^>]*>/i);\nfor (let i = 1; i < h2Parts.length; i++) {\n  const closeIdx = h2Parts[i].search(/<\\/h2>/i);\n  if (closeIdx !== -1) {\n    const heading = h2Parts[i].substring(0, closeIdx).replace(/<[^>]+>/g, '').trim();\n    if (heading && !skipPattern.test(heading)) headings.push(heading);\n  }\n}\n\n// Fallback to H3 if no H2 found\nif (headings.length === 0) {\n  const h3Parts = raw.split(/<h3[^>]*>/i);\n  for (let i = 1; i < h3Parts.length; i++) {\n    const closeIdx = h3Parts[i].search(/<\\/h3>/i);\n    if (closeIdx !== -1) {\n      const heading = h3Parts[i].substring(0, closeIdx).replace(/<[^>]+>/g, '').trim();\n      if (heading && !skipPattern.test(heading)) headings.push(heading);\n    }\n  }\n}\n\n// Fallback: markdown ## or ### headings\nif (headings.length === 0) {\n  const mdH = [...raw.matchAll(/^#{2,3}\\s+(.+)$/gm)]\n    .map(m => m[1].trim())\n    .filter(h => !skipPattern.test(h));\n  headings.push(...mdH);\n}\n\n// Final fallback: topic-based — guarantees at least 3 items\nwhile (headings.length < 3) {\n  const fallbacks = ['essentials', 'tips', 'guide'];\n  headings.push(topic.trim() + ' ' + fallbacks[headings.length % 3]);\n}\n\n// Select exactly 3 headings spread across the article\nlet selected = [];\nif (headings.length >= 6) {\n  selected = [headings[1], headings[3], headings[5]];\n} else if (headings.length >= 4) {\n  selected = [headings[1], headings[2], headings[3]];\n} else {\n  selected = [headings[0], headings[1], headings[2]];\n}\n\nreturn selected.map((heading, i) => ({\n  json: { heading, topic, index: i, post_title: postTitle, category_id: categoryId, featured_media_id: featuredMediaId }\n}));"
       },
-      "id": "05c89f53-f63e-4f4f-b02f-13114411ebc5",
+      "id": "28699653-2ae4-42e7-8090-a8bc835ca081",
       "name": "Extract Headings",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1856,
+        1952,
         560
       ],
       "executeOnce": false
@@ -467,63 +446,33 @@
           "systemMessage": "You are an expert AI image prompt engineer. Generate a single image generation prompt for a blog inline image.\n\nThe image must visually represent the given H2 section heading within the context of the article topic.\n\nRules:\n- Output only the image prompt. Nothing else.\n- No explanations, no labels, no markdown.\n- Photorealistic, editorial quality, suitable as an inline blog image.\n- No text, logos, watermarks, or UI elements in the image.\n- 100-150 words.\n- Cinematic composition, natural lighting, sharp focus, premium quality."
         }
       },
-      "id": "bafa753a-0273-4d70-881c-158064291c8f",
+      "id": "0aeed1cc-af7f-4777-a182-b4111c0a3886",
       "name": "Generate Inline Image Prompt",
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 3.1,
       "position": [
-        2096,
+        2192,
         560
       ],
       "executeOnce": false
     },
     {
       "parameters": {
-        "model": "qwen-turbo",
+        "model": "qwen3-omni-flash",
         "options": {}
       },
-      "id": "ef9faf60-4304-477a-b3b5-1002fde144ab",
+      "id": "a2548a04-1e16-4221-a0b7-5b5268fcb480",
       "name": "Qwen Cloud Chat Model3",
       "type": "@n8n/n8n-nodes-langchain.lmChatAlibabaCloud",
       "typeVersion": 1,
       "position": [
-        2096,
+        2192,
         720
       ],
       "credentials": {
         "alibabaCloudApi": {
-          "id": "j0aIGj3QzaMkFeBH",
-          "name": "Qwen Cloud account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "resource": "image",
-        "modelId": {
-          "__rl": true,
-          "cachedResultName": "qwen-image-2.0-pro-2026-06-22",
-          "mode": "list",
-          "value": "qwen-image-2.0-pro-2026-06-22"
-        },
-        "prompt": "={{ $json.output }}",
-        "imageOptions": {
-          "promptExtend": false
-        }
-      },
-      "id": "84097822-db30-4232-bf65-a249bc8283a7",
-      "name": "Generate Inline Qwen Image",
-      "type": "@n8n/n8n-nodes-langchain.alibabaCloud",
-      "typeVersion": 1.1,
-      "position": [
-        2352,
-        560
-      ],
-      "executeOnce": false,
-      "credentials": {
-        "alibabaCloudApi": {
-          "id": "j0aIGj3QzaMkFeBH",
-          "name": "Qwen Cloud account"
+          "id": "rLn4aIDuC8CX6evC",
+          "name": "Short Converter Api"
         }
       }
     },
@@ -551,19 +500,19 @@
         "inputDataFieldName": "data",
         "options": {}
       },
-      "id": "2dead4a0-905c-4fe0-ad98-f652459d0e43",
+      "id": "68783f49-ad0a-4d59-8a8f-d2de5ef45df2",
       "name": "Upload Inline Image",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        2688,
+        2784,
         560
       ],
       "executeOnce": false,
       "credentials": {
         "httpBasicAuth": {
-          "id": "BucjOcV9qX73xbsH",
-          "name": "Trendfits"
+          "id": "Omy5Emjg9r4OcDtm",
+          "name": "Wordpress"
         }
       }
     },
@@ -574,12 +523,12 @@
         "width": 376,
         "color": 3
       },
-      "id": "92e0df9e-fd0e-40c6-8906-04e9cb0fd353",
+      "id": "f9b7a014-dd57-4ace-ac59-420ffd1c774c",
       "name": "Sticky Note ac1b",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        16,
+        112,
         416
       ]
     },
@@ -590,12 +539,12 @@
         "width": 732,
         "color": "#73756C"
       },
-      "id": "4712665d-cae4-4f92-99f3-9a2ec39e1b7a",
+      "id": "e7cb7693-7208-43bb-b3e4-16c3da1d5e5a",
       "name": "Sticky Note 05bab47b1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        2080,
+        2176,
         464
       ]
     },
@@ -605,12 +554,12 @@
         "height": 552,
         "width": 156
       },
-      "id": "d2543fe2-dbb2-4675-bee9-4749b7e6a60b",
+      "id": "8a2a6930-359a-4ce9-85d9-0a01028fb136",
       "name": "Sticky Note 05bab47b2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        2848,
+        2944,
         384
       ]
     },
@@ -618,12 +567,12 @@
       "parameters": {
         "jsCode": "const items = $input.all();\nconst images = items.map(item => ({ id: item.json.id, url: item.json.source_url })).filter(img => img.id && img.url);\nif (images.length === 0) throw new Error('No inline images uploaded.');\nconst extractItems = $('Extract Headings').all();\nconst imageHeadings = extractItems.map(item => (item.json.heading || '').toLowerCase().trim());\nconst humanizerContent = $('Humanizer').first().json.output || '';\nconst postTitle = $('Parse Article JSON').first().json.post_title;\nconst categoryId = $('Parse Article JSON').first().json.category_id;\nconst featuredMediaId = $('Upload Image').first().json.id;\nconst postKeywords = $('Parse Article JSON').first().json.post_keywords;\nconst postTags = $('Parse Article JSON').first().json.post_tags;\nfunction tokenize(text) { return text.toLowerCase().replace(/<[^>]+>/g,' ').replace(/[^a-z0-9 ]/g,' ').split(/\\s+/).filter(w => w.length >= 4); }\nfunction semanticScore(imageHeading, sectionText) { const imgTokens = new Set(tokenize(imageHeading)); const secTokens = tokenize(sectionText); if (imgTokens.size === 0) return 0; let hits = 0; for (const w of secTokens) { if (imgTokens.has(w)) hits++; } const ih = imageHeading.toLowerCase(); const sh = sectionText.toLowerCase().replace(/<[^>]+>/g,' '); const directBonus = sh.includes(ih) ? 50 : 0; return Math.min(100, hits*5+directBonus); }\nfunction makeFigure(img) { const safeTitle = (postTitle||'').replace(/\"/g,'&quot;'); return '\\n<figure class=\"wp-block-image size-large aligncenter\" style=\"text-align:center;margin:32px auto;\"><img src=\"'+img.url+'\" alt=\"'+safeTitle+'\" class=\"wp-image-'+img.id+'\" style=\"width:100%;height:auto;display:block;margin:0 auto;border-radius:8px;\" loading=\"lazy\" /></figure>\\n'; }\nfunction injectAfterNthP(html, img, n) { let pCount = 0, done = false; return html.replace(/<\\/p>/gi, match => { pCount++; if (pCount === n && !done) { done = true; return '</p>'+makeFigure(img); } return '</p>'; }); }\nconst SEP = '\\x00\\x01\\x02';\nconst withSep = humanizerContent.replace(/(<h[2-6][^>]*>[\\s\\S]*?<\\/h[2-6]>)/gi, SEP+'$1');\nconst parts = withSep.split(SEP);\nconst sections = parts.map((part, idx) => { const hMatch = part.match(/<h[2-6][^>]*>([\\s\\S]*?)<\\/h[2-6]>/i); const headingText = hMatch ? hMatch[1].replace(/<[^>]+>/g,'').toLowerCase().trim() : ''; const isSkipped = !hMatch || /^(conclusion|faq|frequently asked|common questions?|q\\s*&\\s*a|summary|final|wrap|closing)/i.test(headingText); return { idx, headingText, content: part, isSkipped }; });\nconst injectedSections = new Set(); const imageAssignments = [];\nfor (let i = 0; i < images.length; i++) {\n  const ih = imageHeadings[i] || ''; let bestScore = -1; let bestSectionIdx = -1;\n  for (const sec of sections) { if (sec.isSkipped) continue; if (injectedSections.has(sec.idx)) continue; const score = semanticScore(ih, sec.headingText+' '+sec.content); if (score > bestScore) { bestScore = score; bestSectionIdx = sec.idx; } }\n  if (bestSectionIdx === -1) { for (const sec of sections) { if (sec.isSkipped) continue; if (injectedSections.has(sec.idx)) continue; bestSectionIdx = sec.idx; break; } }\n  if (bestSectionIdx !== -1) { injectedSections.add(bestSectionIdx); imageAssignments.push({ imageIdx: i, sectionIdx: bestSectionIdx }); } else { imageAssignments.push({ imageIdx: i, sectionIdx: -1 }); }\n}\nconst resultParts = [...parts];\nfor (const { imageIdx, sectionIdx } of imageAssignments) { if (sectionIdx === -1) continue; const part = resultParts[sectionIdx]; const pCount = (part.match(/<\\/p>/gi)||[]).length; if (pCount === 0) continue; resultParts[sectionIdx] = injectAfterNthP(part, images[imageIdx], Math.min(2,pCount)); }\nconst content = resultParts.join('');\nreturn [{ json: { post_content: content, post_title: postTitle, category_id: categoryId, featured_media_id: featuredMediaId, post_keywords: postKeywords, post_tags: postTags, inline_images: images } }];"
       },
-      "id": "8d750f6d-2c92-4457-bdbe-d71645f846bf",
+      "id": "96771d18-524e-4b2b-b010-a4d6b1fc8320",
       "name": "Collect Inline Images",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2880,
+        2976,
         672
       ]
     },
@@ -633,12 +582,12 @@
         "height": 552,
         "width": 188
       },
-      "id": "92f02717-7c99-470c-9fa6-5ce3bbcc0552",
+      "id": "12993e23-07a8-49b6-8074-3484544539a6",
       "name": "Sticky Note 05bab47b3",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        3024,
+        3120,
         384
       ]
     },
@@ -646,15 +595,15 @@
       "parameters": {
         "content": "# 🚀Update Sheet ",
         "height": 552,
-        "width": 188,
+        "width": 192,
         "color": 3
       },
-      "id": "5b47ed4e-8c90-4b18-b907-13bbac3e5f32",
+      "id": "a302b397-3c3b-4f9a-9c32-78a47176da7e",
       "name": "Sticky Note 05bab47b4",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        3232,
+        3328,
         384
       ]
     },
@@ -663,18 +612,18 @@
         "model": "qwen-max",
         "options": {}
       },
-      "id": "603f603d-77f8-4f5e-813f-429527f60af0",
+      "id": "f1c7657f-03c3-41e1-87c6-58ec251160bd",
       "name": "Qwen Pinterest Model",
       "type": "@n8n/n8n-nodes-langchain.lmChatAlibabaCloud",
       "typeVersion": 1,
       "position": [
-        1760,
+        1856,
         1216
       ],
       "credentials": {
         "alibabaCloudApi": {
-          "id": "j0aIGj3QzaMkFeBH",
-          "name": "Qwen Cloud account"
+          "id": "rLn4aIDuC8CX6evC",
+          "name": "Short Converter Api"
         }
       }
     },
@@ -682,12 +631,12 @@
       "parameters": {
         "jsonSchemaExample": "{ \"board\": \"Fashion & Style\", \"pin1Title\": \"Title 1\", \"pin1Description\": \"Desc 1\", \"pin2Title\": \"Title 2\", \"pin2Description\": \"Desc 2\", \"pin3Title\": \"Title 3\", \"pin3Description\": \"Desc 3\" }"
       },
-      "id": "54ccb87a-62d3-4a6f-ac07-6199724b6d23",
+      "id": "5b5dc9b0-a67c-401b-a70a-072b63f442e1",
       "name": "Pin Content Parser",
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.3,
       "position": [
-        1904,
+        2000,
         1184
       ]
     },
@@ -700,12 +649,12 @@
           "systemMessage": "You are a Pinterest content expert. Given an article title, category ID, and keywords, generate 3 cohesive Pinterest pin titles and descriptions plus select the correct board.\n\nBoard mapping by category_id:\n- 23 = \"Fashion & Style\"\n- 24 = \"Health & Fitness\"\n- 21 = \"Home Decor\"\n- 1 = \"Trending News\"\n- 59 = \"Self Improvement\"\n- 58 = \"Travel Planning\"\n- 56 = \"DIY & Crafts\"\n- 55 = \"Food & Recipes\"\n- 57 = \"Personal Finance\"\n\nRules:\n- All 3 pins must be cohesive, related to each other and to the article\n- Pin 1: broad hook angle\n- Pin 2: specific detail/tip angle\n- Pin 3: motivational/CTA angle\n- Titles: max 100 chars, engaging, keyword-rich\n- Descriptions: max 500 chars, include relevant hashtags at the end\n- Board: pick the exact board name matching the category_id\n\nReturn ONLY valid JSON matching the schema."
         }
       },
-      "id": "44d2a0d4-d4d7-419e-9503-b9c5bcc82ed8",
+      "id": "473abf9e-d891-4d04-b789-4057e2e98157",
       "name": "Generate Pinterest Content",
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 3.1,
       "position": [
-        1760,
+        1856,
         1008
       ]
     },
@@ -713,12 +662,12 @@
       "parameters": {
         "jsCode": "const agentOutput = $('Generate Pinterest Content').first().json.output;\nconst inlineImages = $('Collect Inline Images').first().json.inline_images || [];\nconst articleUrl = $('Post Article').first().json.link;\nconst rowId = $('Get row(s) in sheet').first().json['Row ID'];\nconst board = agentOutput.board;\nreturn [{ json: { board, articleUrl, rowId, pin1: { title: agentOutput.pin1Title, description: agentOutput.pin1Description, imageUrl: inlineImages[0] ? inlineImages[0].url : '' }, pin2: { title: agentOutput.pin2Title, description: agentOutput.pin2Description, imageUrl: inlineImages[1] ? inlineImages[1].url : '' }, pin3: { title: agentOutput.pin3Title, description: agentOutput.pin3Description, imageUrl: inlineImages[2] ? inlineImages[2].url : '' } } }];"
       },
-      "id": "471ac685-39ba-4e72-bcab-ba25a1b4e52e",
+      "id": "27789840-72ba-4dd6-9940-ac68000700c3",
       "name": "Prepare Pinterest Payload",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2064,
+        2160,
         1008
       ]
     },
@@ -740,12 +689,12 @@
         "jsonBody": "={{ JSON.stringify($json) }}",
         "options": {}
       },
-      "id": "38355c62-e9f6-4098-860e-dc5acf51aa31",
+      "id": "9a60c061-44af-4f82-82ee-7807db9b89ef",
       "name": "Send to Make.com Webhook",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        2256,
+        2352,
         1008
       ]
     },
@@ -756,12 +705,12 @@
         "width": 952,
         "color": 3
       },
-      "id": "a91754ab-9e56-4cf7-854d-cc36d2705b08",
+      "id": "fd6ec3ec-8cbf-4b28-84d1-6aef8bd244b1",
       "name": "Sticky Note ac1b2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1616,
+        1712,
         896
       ]
     },
@@ -769,12 +718,12 @@
       "parameters": {
         "jsCode": "// Full tag name → ID map\nconst TAG_MAP = {\n  // Home Decor (21)\n  'interior design': 117,\n  'home styling': 118,\n  'home organization': 119,\n  'furniture': 120,\n  'home improvement': 121,\n  // Trending News (1)\n  'breaking news': 122,\n  'latest updates': 123,\n  'current events': 124,\n  'viral trends': 125,\n  'world news': 126,\n  'top stories': 127,\n  'tech': 128,\n  // Health & Fitness (24)\n  'healthy living': 129,\n  'nutrition': 130,\n  'workout': 131,\n  'weight loss': 132,\n  'wellness': 133,\n  'mental health': 134,\n  // Fashion & Style (23)\n  'fashion trends': 135,\n  'style tips': 136,\n  \"women's fashion\": 137,\n  \"men's fashion\": 138,\n  \"girl's fashion\": 139,\n  'accessories': 140,\n  'seasonal fashion': 141,\n  // DIY & Crafts (56)\n  'diy projects': 142,\n  'handmade crafts': 143,\n  'creative ideas': 144,\n  'upcycling': 145,\n  'craft tutorials': 146,\n  'home projects': 147,\n  // Food & Recipes (55)\n  'easy recipes': 148,\n  'healthy recipes': 149,\n  'cooking tips': 150,\n  'quick meals': 151,\n  'desserts': 152,\n  'kitchen hacks': 153,\n  // Personal Finance (57)\n  'money management': 154,\n  'budgeting': 155,\n  'saving tips': 156,\n  'investing': 157,\n  'financial planning': 158,\n  'passive income': 159,\n  'active income': 160,\n  'sole proprietorship': 161,\n  // Travel Planning (58)\n  'travel tips': 162,\n  'trip planning': 163,\n  'vacation ideas': 164,\n  'travel guides': 165,\n  'budget travelling': 166\n};\n\nconst postTags = $input.first().json.post_tags || '';\nconst postTitle = $input.first().json.post_title;\nconst postContent = $input.first().json.post_content;\nconst categoryId = $input.first().json.category_id;\nconst featuredMediaId = $input.first().json.featured_media_id;\nconst postKeywords = $input.first().json.post_keywords;\nconst inlineImages = $input.first().json.inline_images;\n\nconst tagNames = postTags.split(',').map(t => t.trim().toLowerCase()).filter(Boolean);\nconst tagIds = [];\nconst tagNamesMatched = [];\n\nfor (const tagName of tagNames) {\n  if (TAG_MAP[tagName] !== undefined) {\n    tagIds.push(TAG_MAP[tagName]);\n    tagNamesMatched.push(tagName);\n  } else {\n    for (const [key, id] of Object.entries(TAG_MAP)) {\n      if (key.includes(tagName) || tagName.includes(key)) {\n        if (!tagIds.includes(id)) {\n          tagIds.push(id);\n          tagNamesMatched.push(key);\n        }\n        break;\n      }\n    }\n  }\n}\n\nconst categoryDefaults = {\n  21: [117, 118, 119],\n  1:  [122, 124, 125],\n  24: [129, 131, 133],\n  23: [135, 136, 141],\n  56: [142, 143, 144],\n  55: [148, 149, 150],\n  57: [154, 155, 156],\n  58: [162, 163, 164],\n  59: [122, 124, 125]\n};\n\nif (tagIds.length < 3) {\n  const defaults = categoryDefaults[categoryId] || [122, 124, 125];\n  for (const id of defaults) {\n    if (!tagIds.includes(id)) tagIds.push(id);\n    if (tagIds.length >= 3) break;\n  }\n}\n\nreturn [{ json: {\n  post_title: postTitle,\n  post_content: postContent,\n  category_id: categoryId,\n  featured_media_id: featuredMediaId,\n  post_keywords: postKeywords,\n  post_tags: postTags,\n  post_tag_ids: tagIds,\n  inline_images: inlineImages\n}}];"
       },
-      "id": "7f7f8eb2-1acd-4e11-991e-04f2112b2e05",
+      "id": "bb6a7df7-9c00-476f-82b3-1fb9c5ed5ed0",
       "name": "Resolve Tag IDs",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2880,
+        2976,
         528
       ]
     },
@@ -799,15 +748,15 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        96,
+        192,
         112
       ],
-      "id": "f53947cc-7f7a-43b1-8372-b3000071e990",
+      "id": "e97b9080-a473-4046-85ab-32025eccc297",
       "name": "Get row(s) in sheet",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "g9IUGRun7eXqIVMN",
-          "name": "Google Sheets OAuth2 API"
+          "id": "8FOTdMbvU2LlFGdS",
+          "name": "Google Sheets"
         }
       }
     },
@@ -825,10 +774,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.3,
       "position": [
-        -64,
+        32,
         112
       ],
-      "id": "b9baec45-d7d0-4aa3-b0eb-532684d7ab43",
+      "id": "ecc0e455-04cb-4bc0-aa5c-c17b290ea4ca",
       "name": "Schedule Trigger"
     },
     {
@@ -836,10 +785,10 @@
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
       "position": [
-        368,
+        464,
         96
       ],
-      "id": "050d61de-95d6-4058-8136-4846ae5ebee2",
+      "id": "fa11d446-5f94-458d-af6d-0f5d4143cf5b",
       "name": "Limit"
     },
     {
@@ -853,53 +802,143 @@
           "format": "webp"
         }
       },
-      "id": "b8f27a91-68e6-4dbd-9cc2-dd6bef855343",
+      "id": "0f3df6f3-753b-418a-9955-8e5e98218a3c",
       "name": "Resize Inline Image",
       "type": "n8n-nodes-base.editImage",
       "typeVersion": 1,
       "position": [
-        2528,
+        2624,
         560
       ]
     },
     {
       "parameters": {
-        "method": "POST",
-        "url": "https://indexing.googleapis.com/v3/urlNotifications:publish",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "googleApi",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Content-Type",
-              "value": "application/json"
-            }
-          ]
+        "resource": "image",
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-image-1",
+          "mode": "list",
+          "cachedResultName": "GPT-IMAGE-1"
         },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\"url\": \"{{ $('Post Article').item.json.link }}\", \"type\": \"URL_UPDATED\"}",
-        "options": {
-          "response": {
-            "response": {
-              "neverError": true
-            }
-          }
-        }
+        "prompt": "=You are an expert AI image prompt engineer for Qwen Image Generation.\n\nYour task is to transform every user request or article into a single, highly optimized image generation prompt.\n\nCore Objective:\nThe generated image MUST accurately represent the article's topic, message, and context. Never generate generic, random, or unrelated imagery. Every visual element should reinforce the article's subject.\n\nInstructions:\n- Return ONLY the final optimized prompt.\n- Do not include explanations, markdown, JSON, labels, or extra text.\n- Analyze the entire article or request before writing the prompt.\n- Identify the main topic, key concepts, important entities, industry, audience, and overall intent.\n- Generate an image that visually communicates the article at a glance.\n- Prioritize relevance over visual complexity.\n- Never invent unrelated people, objects, scenery, or concepts.\n- If the article mentions specific products, technologies, businesses, professions, or industries, ensure they are reflected accurately.\n- If the article is abstract, create a symbolic but contextually accurate illustration instead of random visuals.\n- If the article discusses a process or workflow, visualize the process logically.\n- If multiple concepts exist, emphasize the primary subject while subtly incorporating secondary elements.\n- Preserve every important detail from the user's request.\n\nImage Style:\n- Professional editorial/blog featured image.\n- Modern magazine-quality cover.\n- Similar to premium Canva blog thumbnails.\n- Clean, minimalist composition.\n- Strong visual hierarchy.\n- One clear focal point.\n- No clutter.\n- High-end commercial quality.\n\nOutput:\nReturn only one optimized image generation prompt suitable for a square 1024x1024 high-quality image. {{ $json.output }}",
+        "options": {}
       },
-      "id": "gsc-indexing-node-01",
-      "name": "Index on Google Search Console",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.4,
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.3,
       "position": [
-        3168,
+        928,
+        96
+      ],
+      "id": "78fd930c-72e4-4c41-b721-2075ba99e064",
+      "name": "Feautured Image",
+      "credentials": {
+        "openAiApi": {
+          "id": "Npw6VGQ9Bl8dk5jt",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-image-1",
+          "mode": "list",
+          "cachedResultName": "GPT-IMAGE-1"
+        },
+        "prompt": "={{ $json.output }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.3,
+      "position": [
+        2464,
+        560
+      ],
+      "id": "239d9628-c70a-4d75-83b3-949846f16c0a",
+      "name": "Inline images",
+      "credentials": {
+        "openAiApi": {
+          "id": "Npw6VGQ9Bl8dk5jt",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "text": "={{ $('Code in JavaScript').item.json.tweet }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.twitter",
+      "typeVersion": 2,
+      "position": [
+        4064,
         528
       ],
-      "notes": "Submits the newly published article URL to Google Indexing API so it gets crawled immediately."
+      "id": "254f8ac4-71eb-42da-9f1d-c911e61c8679",
+      "name": "Create Tweet",
+      "credentials": {
+        "twitterOAuth2Api": {
+          "id": "MIFL0e13xrFTyask",
+          "name": "X account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Article Title: {{ $('Get row(s) in sheet').item.json.Topic }}\nKeywords: {{ $('Get row(s) in sheet').item.json.KWs }}\nArticle URL: {{ $('Post Article').item.json.link }}",
+        "options": {
+          "systemMessage": "You are a social media expert who crafts viral X (Twitter) posts.\n\nYou will receive an article title, keywords, and article URL. Your job is to write a single X-ready post.\n\nRULES:\n- Maximum 260 characters (leave room for the URL)\n- Write in a punchy, engaging, human tone\n- Hook the reader in the first line\n- Use 2–3 relevant hashtags at the end\n- Do NOT use filler phrases like \"Check this out\" or \"Click here\"\n- Do NOT include the URL — it will be appended automatically\n- Output ONLY the tweet text. No explanations, no quotes around it, no preamble."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        3616,
+        528
+      ],
+      "id": "d48847a8-b1bf-4205-82f1-7e4ec7f3d0fe",
+      "name": "AI Agent",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAlibabaCloud",
+      "typeVersion": 1,
+      "position": [
+        3616,
+        720
+      ],
+      "id": "48dd6fa4-75ac-40a8-a731-360ff22c13a9",
+      "name": "Qwen Cloud Chat Model4",
+      "credentials": {
+        "alibabaCloudApi": {
+          "id": "rLn4aIDuC8CX6evC",
+          "name": "Short Converter Api"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const tweetText = $('AI Agent').first().json.output?.trim() || '';\nconst articleUrl = $('Post Article').first().json.link || '';\nconst featuredImageUrl = $('Upload Image').first().json.source_url || '';\n\n// Validate tweet text exists\nif (!tweetText) {\n  throw new Error('AI Agent produced no tweet text.');\n}\n\n// Strip any URL the agent may have accidentally included\nlet cleanedText = tweetText.replace(/https?:\\/\\/\\S+/g, '').trim();\n\nif (cleanedText.length < 10) {\n  throw new Error('Tweet too short — likely empty or malformed.');\n}\n\n// X limit: 280 chars total.\n// Each URL counts as 23 chars (t.co). Two URLs + 2 spaces = 48 chars reserved.\nconst MAX_TWEET_BODY = 280 - 48;\n\n// Truncate gracefully if too long — cut at last space before limit, add ellipsis\nif (cleanedText.length > MAX_TWEET_BODY) {\n  const cutoff = cleanedText.lastIndexOf(' ', MAX_TWEET_BODY - 3);\n  cleanedText = cleanedText.substring(0, cutoff > 0 ? cutoff : MAX_TWEET_BODY - 3) + '...';\n}\n\n// Build final tweet: text + article link + featured image URL\nlet finalTweet = cleanedText;\nif (articleUrl) finalTweet += ` ${articleUrl}`;\nif (featuredImageUrl) finalTweet += ` ${featuredImageUrl}`;\n\nreturn [{ json: { tweet: finalTweet, charCount: finalTweet.length } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3904,
+        528
+      ],
+      "id": "7ab83931-06db-4fb6-94ac-6c32f66afa2f",
+      "name": "Code in JavaScript",
+      "disabled": true
     }
   ],
-  "pinData": {},
   "connections": {
     "If": {
       "main": [
@@ -945,7 +984,18 @@
       "main": [
         [
           {
-            "node": "Generate an image",
+            "node": "Feautured Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Post Article": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
             "type": "main",
             "index": 0
           }
@@ -956,7 +1006,7 @@
       "main": [
         [
           {
-            "node": "Generate Pinterest Content",
+            "node": "AI Agent",
             "type": "main",
             "index": 0
           }
@@ -969,17 +1019,6 @@
           {
             "node": "Prompt  Generation for Image",
             "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Generate an image": {
-      "main": [
-        [
-          {
-            "node": "Upload Image",
-            "type": "main",
             "index": 0
           }
         ]
@@ -1044,7 +1083,7 @@
       "main": [
         [
           {
-            "node": "Generate Inline Qwen Image",
+            "node": "Inline images",
             "type": "main",
             "index": 0
           }
@@ -1067,6 +1106,17 @@
         [
           {
             "node": "Collect Inline Images",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Collect Inline Images": {
+      "main": [
+        [
+          {
+            "node": "Resolve Tag IDs",
             "type": "main",
             "index": 0
           }
@@ -1117,17 +1167,6 @@
         ]
       ]
     },
-    "Collect Inline Images": {
-      "main": [
-        [
-          {
-            "node": "Resolve Tag IDs",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Resolve Tag IDs": {
       "main": [
         [
@@ -1172,17 +1211,6 @@
         ]
       ]
     },
-    "Generate Inline Qwen Image": {
-      "main": [
-        [
-          {
-            "node": "Resize Inline Image",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Resize Inline Image": {
       "main": [
         [
@@ -1194,22 +1222,66 @@
         ]
       ]
     },
-    "Post Article": {
+    "Feautured Image": {
       "main": [
         [
           {
-            "node": "Index on Google Search Console",
+            "node": "Upload Image",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Index on Google Search Console": {
+    "Inline images": {
       "main": [
         [
           {
-            "node": "Update row in sheet",
+            "node": "Resize Inline Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Tweet": {
+      "main": [
+        [
+          {
+            "node": "Generate Pinterest Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qwen Cloud Chat Model4": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Create Tweet",
             "type": "main",
             "index": 0
           }
@@ -1217,26 +1289,11 @@
       ]
     }
   },
-  "active": true,
-  "settings": {
-    "executionOrder": "v1",
-    "binaryMode": "separate",
-    "availableInMCP": true,
-    "timeSavedMode": "fixed",
-    "callerPolicy": "workflowsFromSameOwner",
-    "saveDataErrorExecution": "all",
-    "saveDataSuccessExecution": "all",
-    "errorWorkflow": "aYQLqd0WKLCfP68i",
-    "timeSavedPerExecution": 4
-  },
-  "versionId": "ae03a160-517b-4027-9de4-03d24290eb9b",
+  "pinData": {},
   "meta": {
+    "templateCredsSetupCompleted": true,
     "aiBuilderAssisted": true,
     "builderVariant": "mcp",
-    "templateCredsSetupCompleted": true,
-    "instanceId": "eb30a7377e070167b6ed60ba18c32ce463ef79c527b818861a15cc907fca2f53"
-  },
-  "nodeGroups": [],
-  "id": "EdNvL90Dexod11gU",
-  "tags": []
+    "instanceId": "1a7b863aba4d8f0c8b5ed068b69adb80568b6971f9a808e93f4fa72b2d3609dc"
+  }
 }
